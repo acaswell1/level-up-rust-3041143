@@ -1,12 +1,15 @@
-fn find_median(list_values : Vec<f32>) -> Option<f32> {
+fn find_median(mut list_values : Vec<f32>) -> Option<f32> {
     let list_len = list_values.len();
     
     if list_len == 0 {
         return None;
     }
 
+    list_values.sort_by(|a, b| a.partial_cmp(b).unwrap());
+
     return match list_len % 2 {
         0 => {
+
             let left = list_values.get(list_len / 2 - 1).unwrap();
             let right = list_values.get(list_len / 2).unwrap();
             Some((left + right) / 2.0)
@@ -20,7 +23,7 @@ fn find_median(list_values : Vec<f32>) -> Option<f32> {
 
 
 fn main() {
-    let odd_test: Vec<f32> = [1.0, 1.5, 1.9, 2.3, 9.7].to_vec();
+    let odd_test: Vec<f32> = [1.0, 1.9, 1.5, 2.3, 9.7].to_vec();
     let even_test: Vec<f32> = [1.0, 1.5, 1.9, 2.3, 9.7, 18.6].to_vec();
     let empty_test: Vec<f32> = [].to_vec();
 
