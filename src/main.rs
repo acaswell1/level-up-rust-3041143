@@ -1,9 +1,16 @@
 fn sum_with_missing(numbers: Vec<Option<i32>>) -> i32 {
-    todo!();
+    let mut result: i32 = 0;
+    for opt in numbers {
+        match opt {
+           Some(val) => result +=  val,
+           None => continue,
+        }
+    }
+    result
 }
 
 fn main() {
-    println!("");
+    println!("Hello");
 }
 
 
