@@ -1,4 +1,5 @@
 use std::collections::{HashMap, HashSet};
+use std::cmp;
 
 type Node = usize;
 type Cost = usize;
@@ -33,7 +34,35 @@ impl Graph {
 
 
 fn shortest_path(g: &Graph, start: Node, goal: Node) -> Option<(Vec<Node>, Cost)> {
-    todo!()
+    let mut edges: HashMap<usize, Vec<(usize, usize)>> = g.edges.clone();
+    let mut nodes_unexplored = g.nodes.clone();
+    let num_nodes = g.nodes.len();
+
+    let mut nodes_dists: HashMap<usize, usize> = HashMap::with_capacity(num_nodes);
+    nodes_dists.entry(start).or_insert(0);
+
+    let exploring = start;
+    nodes_unexplored.remove(&exploring);
+    let edge_explore = edges.get(&exploring).unwrap();
+    let mut val : usize = 20;
+    
+    for edg in edge_explore {
+        let temp_val = *nodes_dists.entry(edg.0)
+            .and_modify(|val| { if *val > edg.1 {
+                *val = edg.1;
+            }})
+            .or_insert(edg.1);
+        if temp_val < val {
+            println!("{}", temp_val);
+            val = temp_val;
+        }
+    }
+    
+
+    println!("{:?}", edge_explore);
+    println!("{:?}", nodes_dists);
+
+    None
 }
 
 fn main() {
